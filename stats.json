@@ -1,0 +1,87 @@
+{
+  "updatedAt": 1778045736,
+  "updatedAtHuman": "2026-05-05 22:35:36",
+  "activeSets": 9,
+  "generations": 7,
+  "spotGeneration": 7,
+  "futuresGeneration": 7,
+  "totalTicks": 180813,
+  "totalTrades": 395202,
+  "bestEquity": 6583.79,
+  "totalBotsEvolved": 3200000000,
+  "daysOfRAndD": 117,
+  "sets": [
+    {
+      "name": "Market \u2192 Market",
+      "type": "spot",
+      "generation": 7,
+      "ticks": 20662,
+      "trades": 76268,
+      "equity": 102.43
+    },
+    {
+      "name": "Market \u2192 Limit",
+      "type": "spot",
+      "generation": 7,
+      "ticks": 19633,
+      "trades": 73743,
+      "equity": 102.25
+    },
+    {
+      "name": "Limit \u2192 Market",
+      "type": "spot",
+      "generation": 7,
+      "ticks": 20662,
+      "trades": 77043,
+      "equity": 102.3
+    },
+    {
+      "name": "Limit \u2192 Limit",
+      "type": "spot",
+      "generation": 3,
+      "ticks": 20662,
+      "trades": 168148,
+      "equity": 100.59
+    },
+    {
+      "name": "Medium",
+      "type": "futures",
+      "generation": 7,
+      "ticks": 19633,
+      "trades": 0,
+      "equity": 1006.91
+    },
+    {
+      "name": "Medium-High",
+      "type": "futures",
+      "generation": 7,
+      "ticks": 19633,
+      "trades": 0,
+      "equity": 6583.79
+    },
+    {
+      "name": "Low Fee",
+      "type": "futures",
+      "generation": 7,
+      "ticks": 20662,
+      "trades": 0,
+      "equity": 1024.62
+    },
+    {
+      "name": "Medium-Low",
+      "type": "futures",
+      "generation": 7,
+      "ticks": 19633,
+      "trades": 0,
+      "equity": 1019.16
+    },
+    {
+      "name": "High Fee",
+      "type": "futures",
+      "generation": 7,
+      "ticks": 19633,
+      "trades": 0,
+      "equity": 952.54
+    }
+  ]
+}
