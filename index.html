@@ -824,16 +824,19 @@
         }
 
         function renderStats(data) {
+            const totalGen = data.totalGenerations || data.generations || 0;
+            
             // Hero stats
             setText('hBestEquity', '$' + (data.bestEquity || 103).toFixed(0));
             setText('hTotalTicks', formatShort(data.totalTicks || 0));
             setText('hBotsEvolved', formatShort(data.totalBotsEvolved || 0));
-            setText('hGenCount', data.generations || 0);
+            setText('hGenCount', totalGen);
+            setText('heroGenCount', totalGen + '+');
 
             // Scale numbers
             setText('sBotsEvolved', formatShort(data.totalBotsEvolved || 0));
             setText('sTicks', formatShort(data.totalTicks || 0));
-            setText('sGen', data.generations || 0);
+            setText('sGen', totalGen);
             setText('sDays', data.daysOfRAndD || 117);
 
             // Live demo stats
@@ -842,23 +845,53 @@
             setText('dFuturesGen', data.futuresGeneration || 0);
             setText('dTotalTrades', formatShort(data.totalTrades || 0));
 
+            // Spot vs Futures
+            setText('spotAvgEquity', '$' + (data.avgSpotEquity || 0).toFixed(2));
+            setText('spotSuccessRate', (data.spotSuccessRate || 0) + '%');
+            setText('futuresBestEq', '$' + (data.bestEquity || 0).toFixed(0));
+            setText('avgFuturesEquity', '$' + (data.avgFuturesEquity || 0).toFixed(0));
+
             // Evolution sets list
             const container = document.getElementById('evolutionSets');
             if (data.sets && data.sets.length) {
-                container.innerHTML = '<h4 style="font-weight:600; margin-bottom:16px;">Evolution Sets</h4>';
-                data.sets.forEach(s => {
+                const spotSets = data.sets.filter(s => s.type === 'spot');
+                const futSets = data.sets.filter(s => s.type === 'futures');
+                let html = '';
+                
+                // Group: Spot
+                html += '<h4 style="font-weight:600; margin-bottom:8px; color:#22c55e;">🟢 Spot Sets</h4>';
+                spotSets.forEach(s => {
                     const eqClass = s.equity >= 100 ? 'equity-up' : 'equity-down';
-                    let label = s.equity >= 0 ? '$' + s.equity.toFixed(0) : '-';
-                    container.innerHTML += `
+                    let label = '$' + (s.equity || 0).toFixed(0);
+                    html += `
                         <div class="evolution-set">
                             <div class="left">
                                 <span class="name">${s.name}</span>
                                 <span class="gen">gen ${s.generation}</span>
                             </div>
-                            <span class="equity ${eqClass}">${label}</span>
+                            <span class="equity ${eqClass}">${label} <span style="color:#64748b; font-size:0.75rem;">(avg: $${(s.avgEquity || 0).toFixed(2)})</span></span>
                         </div>
                     `;
                 });
+                
+                // Group: Futures
+                html += '<h4 style="font-weight:600; margin-top:16px; margin-bottom:8px; color:#f59e0b;">🟡 Futures MM Sets</h4>';
+                html += '<p style="color:#64748b; font-size:0.8rem; margin-bottom:12px;">Best performers shown — averages are lower as evolution refines risk parameters.</p>';
+                futSets.forEach(s => {
+                    const eqClass = s.equity >= 100 ? 'equity-up' : 'equity-down';
+                    let label = '$' + (s.equity || 0).toFixed(0);
+                    html += `
+                        <div class="evolution-set">
+                            <div class="left">
+                                <span class="name">${s.name}</span>
+                                <span class="gen">gen ${s.generation}</span>
+                            </div>
+                            <span class="equity ${eqClass}">${label} <span style="color:#64748b; font-size:0.75rem;">(avg: $${(s.avgEquity || 0).toFixed(0)})</span></span>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
             }
 
             // Live ticker bar
@@ -867,17 +900,21 @@
             let tickerHTML = `
                 <span class="live-tag"><span class="pulse"></span> LIVE</span>
                 <span class="live-stat-item">Updated: <strong>${now}</strong></span>
+                <span class="live-stat-item">Sets: <strong>${data.activeSets || 0}</strong></span>
+                <span class="live-stat-item">Cumulative Gen: <strong>${totalGen}</strong></span>
                 <span class="live-stat-item">Bots: <strong>${formatShort(data.totalBotsEvolved || 0)}</strong></span>
                 <span class="live-stat-item">Ticks: <strong>${formatShort(data.totalTicks || 0)}</strong></span>
-                <span class="live-stat-item">Generations: <strong>${data.generations || 0}</strong></span>
-                <span class="live-stat-item">Best Bot: <strong>$${(data.bestEquity || 0).toFixed(0)}</strong></span>
+                <span class="live-stat-item">Best: <strong>$${(data.bestEquity || 0).toFixed(0)}</strong></span>
+                <span class="live-stat-item">Spot Avg: <strong>$${(data.avgSpotEquity || 0).toFixed(2)}</strong></span>
                 <span class="live-stat-item">Trades: <strong>${formatShort(data.totalTrades || 0)}</strong></span>
                 <span class="live-tag"><span class="pulse"></span> LIVE</span>
                 <span class="live-stat-item">Updated: <strong>${now}</strong></span>
+                <span class="live-stat-item">Sets: <strong>${data.activeSets || 0}</strong></span>
+                <span class="live-stat-item">Cumulative Gen: <strong>${totalGen}</strong></span>
                 <span class="live-stat-item">Bots: <strong>${formatShort(data.totalBotsEvolved || 0)}</strong></span>
                 <span class="live-stat-item">Ticks: <strong>${formatShort(data.totalTicks || 0)}</strong></span>
-                <span class="live-stat-item">Generations: <strong>${data.generations || 0}</strong></span>
-                <span class="live-stat-item">Best Bot: <strong>$${(data.bestEquity || 0).toFixed(0)}</strong></span>
+                <span class="live-stat-item">Best: <strong>$${(data.bestEquity || 0).toFixed(0)}</strong></span>
+                <span class="live-stat-item">Spot Avg: <strong>$${(data.avgSpotEquity || 0).toFixed(2)}</strong></span>
                 <span class="live-stat-item">Trades: <strong>${formatShort(data.totalTrades || 0)}</strong></span>
             `;
             bar.innerHTML = tickerHTML;
