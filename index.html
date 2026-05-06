@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EvoTrade Pro — Institutional AI Trading for Everyone</title>
+    <meta name="description" content="EvoTrade Pro combines evolutionary AI with multi-asset trading. Self-evolving algorithms that learn, adapt, and trade crypto, stocks, and commodities.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ── Reset & Base ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            background: #0a0e17;
+            color: #e2e8f0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: #60a5fa; text-decoration: none; }
+        a:hover { color: #93c5fd; }
+        img { max-width: 100%; height: auto; }
+
+        /* ── Utility ── */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section { padding: 100px 0; }
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #60a5fa;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+        }
+        .logo {
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: -0.02em;
+        }
+        .logo span { color: #60a5fa; }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #f1f5f9; }
+        .nav-cta {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff !important;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #e2e8f0;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 68px;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37,99,235,0.15), transparent 70%);
+            top: 10%; right: -10%;
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(124,58,237,0.1), transparent 70%);
+            bottom: 0; left: -5%;
+            pointer-events: none;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37, 99, 235, 0.12);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #93c5fd;
+            margin-bottom: 28px;
+        }
+        .hero-badge .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: #94a3b8;
+            max-width: 520px;
+            margin-bottom: 36px;
+            line-height: 1.7;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(37, 99, 235, 0.4);
+            color: #fff;
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #e2e8f0;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: background 0.2s, border-color 0.2s;
+            background: rgba(255,255,255,0.04);
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.25);
+            color: #fff;
+        }
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-visual-inner {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(124,58,237,0.06));
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .chart-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .chart-line {
+            position: absolute;
+            bottom: 20%;
+            left: 10%;
+            width: 80%;
+            height: 50%;
+        }
+        .chart-line svg {
+            width: 100%;
+            height: 100%;
+        }
+        .hero-stats {
+            position: absolute;
+            display: flex;
+            gap: 24px;
+            bottom: 16px;
+            left: 24px;
+            right: 24px;
+            background: rgba(10,14,23,0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 16px 20px;
+        }
+        .hero-stat {
+            flex: 1;
+            text-align: center;
+        }
+        .hero-stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .hero-stat-label {
+            font-size: 0.7rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+        }
+        .hero-stat .green { color: #22c55e; }
+        .hero-stat .blue { color: #60a5fa; }
+        .hero-stat .purple { color: #a78bfa; }
+
+        /* ── Problem / Solution ── */
+        .problem-solution {
+            background: linear-gradient(180deg, #0a0e17 0%, #0f172a 100%);
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .ps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+        .ps-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 36px;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .ps-card:hover {
+            border-color: rgba(37, 99, 235, 0.2);
+            background: rgba(37, 99, 235, 0.04);
+        }
+        .ps-card.problem { border-color: rgba(239,68,68,0.15); }
+        .ps-card.problem:hover { border-color: rgba(239,68,68,0.25); background: rgba(239,68,68,0.03); }
+        .ps-card.solution { border-color: rgba(34,197,94,0.15); }
+        .ps-card.solution:hover { border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.03); }
+        .ps-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        .ps-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .ps-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .ps-card li {
+            padding: 8px 0;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .ps-card li:last-child { border-bottom: none; }
+        .ps-card li::before {
+            content: '✕';
+            color: #ef4444;
+            margin-right: 12px;
+            font-weight: 600;
+        }
+        .ps-card.solution li::before {
+            content: '✓';
+            color: #22c55e;
+        }
+
+        /* ── Features ── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .feature-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 32px 28px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+        .feature-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+        .feature-icon.ai { background: rgba(37,99,235,0.12); color: #60a5fa; }
+        .feature-icon.multi { background: rgba(124,58,237,0.12); color: #a78bfa; }
+        .feature-icon.scale { background: rgba(34,197,94,0.12); color: #22c55e; }
+        .feature-icon.risk { background: rgba(245,158,11,0.12); color: #f59e0b; }
+        .feature-icon.comply { background: rgba(236,72,153,0.12); color: #f472b6; }
+        .feature-icon.hardware { background: rgba(99,102,241,0.12); color: #818cf8; }
+        .feature-card h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ── Pricing ── */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .pricing-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 36px 28px;
+            text-align: center;
+            transition: border-color 0.3s;
+            position: relative;
+        }
+        .pricing-card.featured {
+            border-color: rgba(37, 99, 235, 0.3);
+            background: rgba(37, 99, 235, 0.04);
+        }
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 4px 16px;
+            border-radius: 100px;
+        }
+        .pricing-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #64748b;
+        }
+        .pricing-desc {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+        }
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 28px;
+        }
+        .pricing-features li {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .pricing-features li:last-child { border-bottom: none; }
+        .pricing-features li::before {
+            content: '✓';
+            color: #22c55e;
+            margin-right: 10px;
+            font-weight: 600;
+        }
+        .pricing-cta {
+            display: block;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            color: #e2e8f0;
+            transition: all 0.2s;
+        }
+        .pricing-cta:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        .pricing-card.featured .pricing-cta {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            border: none;
+            color: #fff;
+        }
+        .pricing-card.featured .pricing-cta:hover {
+            box-shadow: 0 8px 24px rgba(37,99,235,0.35);
+            transform: translateY(-1px);
+        }
+
+        /* ── Live Demo ── */
+        .live-demo {
+            background: linear-gradient(180deg, #0f172a 0%, #0a0e17 100%);
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        .demo-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .demo-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .demo-stat {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .demo-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #60a5fa;
+        }
+        .demo-stat-label {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        /* ── CTA ── */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(124,58,237,0.08));
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            text-align: center;
+            padding: 100px 0;
+        }
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 36px;
+        }
+        .cta-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.04);
+            padding: 48px 0;
+        }
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        footer .logo { font-size: 1.1rem; }
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        .footer-links a { color: #64748b; }
+        .footer-links a:hover { color: #94a3b8; }
+        .footer-copy {
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        /* ── Waitlist Modal ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: #0f172a;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 460px;
+            width: 90%;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .modal h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .modal p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+        .modal input, .modal select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            font-family: inherit;
+        }
+        .modal input:focus, .modal select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+        .modal button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .modal button[type="submit"]:hover { transform: translateY(-1px); }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-visual { order: -1; }
+            .ps-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+            .demo-content { grid-template-columns: 1fr; }
+            .nav-links a:not(.nav-cta) { display: none; }
+        }
+        @media (max-width: 600px) {
+            .features-grid { grid-template-columns: 1fr; }
+            .demo-stats-grid { grid-template-columns: 1fr; }
+            .hero-stats { flex-wrap: wrap; gap: 12px; }
+            .hero-stat { min-width: 80px; }
+            section { padding: 60px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── Nav ── -->
+    <nav>
+        <div class="container">
+            <div class="logo">Evo<span>Trade</span> Pro</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#demo">Live Demo</a>
+                <a href="#invest">Invest</a>
+                <a href="#" class="nav-cta" onclick="openModal(); return false;">Join Waitlist</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <div class="hero-badge">
+                        <span class="dot"></span>
+                        Now Raising on FrontFundr
+                    </div>
+                    <h1>
+                        Institutional AI Trading<br>
+                        <span class="gradient-text">for Everyone</span>
+                    </h1>
+                    <p>
+                        EvoTrade Pro combines evolutionary AI with multi-asset trading.
+                        Self-evolving algorithms that learn, adapt, and trade crypto,
+                        stocks, and commodities — all in one platform.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#" class="btn-primary" onclick="openModal(); return false;">
+                            Get Early Access →
+                        </a>
+                        <a href="#invest" class="btn-secondary">
+                            View Investment Opportunity
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-visual-inner">
+                        <div class="chart-grid"></div>
+                        <div class="chart-line">
+                            <svg viewBox="0 0 400 200" preserveAspectRatio="none">
+                                <defs>
+                                    <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stop-color="#2563eb" stop-opacity="0.8"/>
+                                        <stop offset="50%" stop-color="#7c3aed" stop-opacity="0.8"/>
+                                        <stop offset="100%" stop-color="#f472b6" stop-opacity="0.8"/>
+                                    </linearGradient>
+                                </defs>
+                                <polyline
+                                    points="0,180 20,160 40,170 60,120 80,100 100,110 120,80 140,90 160,60 180,70 200,40 220,50 240,30 260,45 280,20 300,35 320,15 340,25 360,10 380,20 400,5"
+                                    fill="none"
+                                    stroke="url(#lineGrad)"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <polygon
+                                    points="0,180 20,160 40,170 60,120 80,100 100,110 120,80 140,90 160,60 180,70 200,40 220,50 240,30 260,45 280,20 300,35 320,15 340,25 360,10 380,20 400,5 400,200 0,200"
+                                    fill="url(#lineGrad)"
+                                    opacity="0.06"
+                                />
+                            </svg>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="hero-stat">
+                                <div class="hero-stat-value green">$103.70</div>
+                                <div class="hero-stat-label">Bot Equity (avg)</div>
+                            </div>
+                            <div class="hero-stat">
+                                <div class="hero-stat-value blue">302K</div>
+                                <div class="hero-stat-label">Ticks Processed</div>
+                            </div>
+                            <div class="hero-stat">
+                                <div class="hero-stat-value purple">9 Sets</div>
+                                <div class="hero-stat-label">Active Evolutions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Problem / Solution ── -->
+    <section class="section problem-solution">
+        <div class="container">
+            <div class="ps-grid">
+                <div class="ps-card problem">
+                    <div class="ps-icon">⚠️</div>
+                    <h3>The Problem</h3>
+                    <ul>
+                        <li>Institutional trading tools cost $50,000+ — inaccessible to most</li>
+                        <li>Retail trading bots use simple, static algorithms that don't adapt</li>
+                        <li>Fragmented systems for different assets (crypto vs stocks vs futures)</li>
+                        <li>Most algorithms don't learn or improve over time</li>
+                    </ul>
+                </div>
+                <div class="ps-card solution">
+                    <div class="ps-icon">⚡</div>
+                    <h3>The Solution</h3>
+                    <ul>
+                        <li>Evolutionary AI — algorithms that learn and adapt continuously</li>
+                        <li>Multi-asset: crypto, stocks, commodities in one platform</li>
+                        <li>Scalable: from 1 to 1,000 simultaneous trading bots</li>
+                        <li>Complete hardware + software solution for institutions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Features ── -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-label">Platform Features</div>
+            <div class="section-title">Built Different. <span class="gradient-text">Built to Evolve.</span></div>
+            <div class="section-subtitle">EvoTrade Pro isn't another static bot. It's a living ecosystem of algorithms that compete, adapt, and improve without human intervention.</div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon ai">🧬</div>
+                    <h4>Evolutionary AI</h4>
+                    <p>Genetic algorithms that optimize trading strategies across generations. The system finds what works and improves it — automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon multi">🌐</div>
+                    <h4>Multi-Asset Trading</h4>
+                    <p>Trade crypto, stocks, commodities, and forex from a single platform. Deploy the same evolved strategies across multiple markets.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon scale">📈</div>
+                    <h4>Scalable Architecture</h4>
+                    <p>Run 1 bot or 1,000. Our architecture scales seamlessly from retail to institutional deployment without missing a tick.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon risk">🛡️</div>
+                    <h4>Risk Management</h4>
+                    <p>Automated position sizing, dynamic stop-losses, drawdown controls, and portfolio-level risk allocation built into every strategy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon comply">🔒</div>
+                    <h4>Regulatory Ready</h4>
+                    <p>Built for Canadian and international compliance from day one. FINTRAC, PIPEDA, and GDPR aligned architecture.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon hardware">🖥️</div>
+                    <h4>Hardware Bundles</h4>
+                    <p>Dedicated trading appliances for institutional clients. Pre-configured, optimized, and ready to deploy in any data center.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Live Demo ── -->
+    <section class="section live-demo" id="demo">
+        <div class="container">
+            <div class="demo-content">
+                <div>
+                    <div class="section-label">Live Evolution</div>
+                    <div class="section-title">See It <span class="gradient-text">In Action</span></div>
+                    <p class="section-subtitle" style="margin-bottom:0;">
+                        Our trading algorithms are evolving in real-time on live market data.
+                        The system runs 9 independent evolution sets across spot and futures markets,
+                        continuously optimizing for profitability and risk management.
+                    </p>
+                    <div class="demo-stats-grid">
+                        <div class="demo-stat">
+                            <div class="demo-stat-value">182</div>
+                            <div class="demo-stat-label">Generations Evolved</div>
+                        </div>
+                        <div class="demo-stat">
+                            <div class="demo-stat-value">450</div>
+                            <div class="demo-stat-label">Active Bot Simulations</div>
+                        </div>
+                        <div class="demo-stat">
+                            <div class="demo-stat-value">50.5h</div>
+                            <div class="demo-stat-label">Continuous Market Data</div>
+                        </div>
+                        <div class="demo-stat">
+                            <div class="demo-stat-value">9</div>
+                            <div class="demo-stat-label">Evolutionary Sets</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:32px;">
+                        <h4 style="font-weight:600; margin-bottom:16px;">Evolution Performance Snapshot</h4>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:0.9rem;">
+                            <div style="color:#94a3b8;">Spot Bots</div>
+                            <div style="text-align:right; color:#22c55e;">+3.7% avg return</div>
+                            <div style="color:#94a3b8;">Futures Bots</div>
+                            <div style="text-align:right; color:#22c55e;">+592% avg return</div>
+                            <div style="color:#94a3b8;">Best Performer</div>
+                            <div style="text-align:right; color:#a78bfa;">$7,753 🏆</div>
+                            <div style="color:#94a3b8;">Risk Profile</div>
+                            <div style="text-align:right; color:#f59e0b;">Evolving</div>
+                            <div style="color:#94a3b8;">Market Coverage</div>
+                            <div style="text-align:right; color:#60a5fa;">BTC/USDT</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Pricing ── -->
+    <section class="section" id="pricing">
+        <div class="container">
+            <div class="section-label" style="text-align:center;">Simple Pricing</div>
+            <div class="section-title" style="text-align:center;">Plans for <span class="gradient-text">Every Trader</span></div>
+            <div class="section-subtitle" style="text-align:center; margin:0 auto 0;">From retail to institutional — one platform, five tiers.</div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-name">Basic</div>
+                    <div class="pricing-price">$200<span>/mo</span></div>
+                    <div class="pricing-desc">For retail traders getting started</div>
+                    <ul class="pricing-features">
+                        <li>5 simultaneous bots</li>
+                        <li>Single asset class</li>
+                        <li>Basic evolution sets</li>
+                        <li>Email support</li>
+                    </ul>
+                    <a href="#" class="pricing-cta" onclick="openModal(); return false;">Get Started</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-name">Pro</div>
+                    <div class="pricing-price">$750<span>/mo</span></div>
+                    <div class="pricing-desc">For serious active traders</div>
+                    <ul class="pricing-features">
+                        <li>25 simultaneous bots</li>
+                        <li>Multi-asset (crypto + stocks)</li>
+                        <li>Advanced evolution parameters</li>
+                        <li>Priority support</li>
+                        <li>API access</li>
+                    </ul>
+                    <a href="#" class="pricing-cta" onclick="openModal(); return false;">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-name">Enterprise</div>
+                    <div class="pricing-price">$2,500<span>/mo</span></div>
+                    <div class="pricing-desc">For professional trading firms</div>
+                    <ul class="pricing-features">
+                        <li>100 simultaneous bots</li>
+                        <li>All asset classes</li>
+                        <li>Full evolution customization</li>
+                        <li>Dedicated account manager</li>
+                        <li>White-label options</li>
+                    </ul>
+                    <a href="#" class="pricing-cta" onclick="openModal(); return false;">Contact Sales</a>
+                </div>
+            </div>
+            <p style="text-align:center; color:#64748b; font-size:0.85rem; margin-top:24px;">
+                Institutional plans available at $10K+/mo · Hardware bundles from $25K+
+            </p>
+        </div>
+    </section>
+
+    <!-- ── Investment ── -->
+    <section class="section" id="invest" style="background:rgba(37,99,235,0.02); border-top:1px solid rgba(255,255,255,0.04); border-bottom:1px solid rgba(255,255,255,0.04);">
+        <div class="container">
+            <div class="section-label" style="text-align:center;">Investment Opportunity</div>
+            <div class="section-title" style="text-align:center;">Join the <span class="gradient-text">Future of Trading</span></div>
+            <div class="section-subtitle" style="text-align:center; margin:0 auto 48px;">
+                EvoTrade Technologies Inc. is raising capital on FrontFundr to bring institutional-grade AI trading to everyone.
+            </div>
+            <div style="max-width:800px; margin:0 auto;">
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:24px;">
+                    <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:24px; text-align:center;">
+                        <div style="font-size:2rem; font-weight:800; color:#60a5fa;">$750K</div>
+                        <div style="color:#64748b; font-size:0.85rem; margin-top:4px;">Funding Target</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:24px; text-align:center;">
+                        <div style="font-size:2rem; font-weight:800; color:#a78bfa;">13%</div>
+                        <div style="color:#64748b; font-size:0.85rem; margin-top:4px;">Equity Offered</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:24px; text-align:center;">
+                        <div style="font-size:2rem; font-weight:800; color:#22c55e;">$250</div>
+                        <div style="color:#64748b; font-size:0.85rem; margin-top:4px;">Minimum Investment</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:24px; text-align:center;">
+                        <div style="font-size:2rem; font-weight:800; color:#f59e0b;">$30B</div>
+                        <div style="color:#64748b; font-size:0.85rem; margin-top:4px;">Market by 2027</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to <span class="gradient-text">Evolve</span> Your Trading?</h2>
+            <p>Join the waitlist for early access pricing and be first to know when we launch our FrontFundr campaign.</p>
+            <div class="cta-actions">
+                <a href="#" class="btn-primary" onclick="openModal(); return false;">
+                    Join the Waitlist →
+                </a>
+                <a href="#invest" class="btn-secondary">
+                    Investment Details
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer>
+        <div class="container">
+            <div class="logo">Evo<span>Trade</span> Pro</div>
+            <div class="footer-links">
+                <a href="#hero">Home</a>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#demo">Demo</a>
+                <a href="#invest">Invest</a>
+            </div>
+            <div class="footer-copy">© 2026 EvoTrade Technologies Inc. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- ── Waitlist Modal ── -->
+    <div class="modal-overlay" id="waitlistModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>Get Early Access 🚀</h3>
+            <p>Join the waitlist and be first to know when EvoTrade Pro launches. Early adopters get exclusive pricing.</p>
+            <form id="waitlistForm" onsubmit="submitWaitlist(event)">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <select required>
+                    <option value="">I am a...</option>
+                    <option value="retail">Retail Trader</option>
+                    <option value="professional">Professional Trader</option>
+                    <option value="institutional">Institutional Investor</option>
+                    <option value="investor">Investor Only</option>
+                </select>
+                <button type="submit">Join Waitlist →</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('waitlistModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById('waitlistModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('waitlistModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        function submitWaitlist(e) {
+            e.preventDefault();
+            const form = e.target;
+            const name = form.querySelector('input[type="text"]').value;
+            const email = form.querySelector('input[type="email"]').value;
+            // For now just thank them — backend comes later
+            form.innerHTML = `
+                <div style="text-align:center; padding:20px;">
+                    <div style="font-size:3rem; margin-bottom:12px;">✅</div>
+                    <h3 style="margin-bottom:8px;">You're on the list!</h3>
+                    <p style="color:#94a3b8;">We'll notify ${email} when we launch.</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
