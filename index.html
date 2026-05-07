@@ -930,10 +930,38 @@
         document.getElementById('waitlistModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
         function submitWaitlist(e) {
-            e.preventDefault(); const form = e.target;
+            e.preventDefault();
+            const form = e.target;
+            const name = form.querySelector('input[type="text"]').value;
             const email = form.querySelector('input[type="email"]').value;
-            form.innerHTML = '<div style="text-align:center;padding:20px;"><div style="font-size:3rem;margin-bottom:12px;">✅</div><h3 style="margin-bottom:8px;">You\'re on the list!</h3><p style="color:#94a3b8;">We\'ll notify ' + email + ' when we launch.</p></div>';
-        }
+            const role = form.querySelector('select').value;
+            const btn = form.querySelector('button');
+            
+            btn.textContent = 'Submitting...';
+            btn.disabled = true;
+
+            const msg = '📋 *New Waitlist Signup*\n━━━━━━━━━━━━━\n👤 *Name:* ' + name + '\n📧 *Email:* ' + email + '\n🏷️ *Role:* ' + role + '\n🌐 *Source:* evotrade.ca';
+            
+            fetch('https://api.telegram.org/bot8545114414:AAG5jCWdeCWr3fHLtC-begjTVn6qkAqrsqU/sendMessage', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    chat_id: '8538254551',
+                    text: msg,
+                    parse_mode: 'Markdown'
+                })
+            }).then(r => r.json()).then(data => {
+                if (data.ok) {
+                    form.innerHTML = '<div style="text-align:center;padding:20px;"><div style="font-size:3rem;margin-bottom:12px;">✅</div><h3 style="margin-bottom:8px;">You\'re on the list!</h3><p style="color:#94a3b8;">We\'ll notify ' + email + ' when we launch.</p></div>';
+                } else {
+                    throw new Error('Telegram API error');
+                }
+            }).catch(err => {
+                btn.textContent = 'Try Again →';
+                btn.disabled = false;
+                alert('Something went wrong. Please try again or email us directly.');
+            });
+        }        }
 
         // Load stats on page load
         loadStats();
