@@ -1,6 +1,6 @@
 {
-  "updatedAt": 1778457301,
-  "updatedAtHuman": "2026-05-10 16:55:01",
+  "updatedAt": 1778457601,
+  "updatedAtHuman": "2026-05-10 17:00:01",
   "activeSets": 9,
   "generations": 0,
   "totalGenerations": 0,
@@ -12,7 +12,7 @@
   "bestEquity": 1468.49,
   "totalBotsEvolved": 3200000000,
   "daysOfRAndD": 117,
-  "avgSpotEquity": 100.91,
+  "avgSpotEquity": 101.06,
   "avgFuturesEquity": 486.73,
   "spotSuccessRate": 100,
   "sets": [
@@ -49,8 +49,8 @@
       "generation": 0,
       "ticks": 0,
       "trades": 0,
-      "equity": 101.78,
-      "avgEquity": 101.24
+      "equity": 102.35,
+      "avgEquity": 101.85
     },
     {
       "name": "Medium",
