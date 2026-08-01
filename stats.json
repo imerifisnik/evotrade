@@ -1,14 +1,14 @@
 {
-  "updatedAt": 1785611701,
-  "updatedAtHuman": "2026-08-01 12:15:01",
+  "updatedAt": 1785612001,
+  "updatedAtHuman": "2026-08-01 12:20:01",
   "activeSets": 9,
   "generations": 93,
   "totalGenerations": 806,
   "spotGeneration": 93,
   "futuresGeneration": 93,
   "totalTicks": 11200000,
-  "currentSessionTicks": 917388,
-  "totalTrades": 377363,
+  "currentSessionTicks": 922968,
+  "totalTrades": 377368,
   "bestEquity": 114.26,
   "totalBotsEvolved": 3200000000,
   "daysOfRAndD": 117,
@@ -20,7 +20,7 @@
       "name": "Market \u2192 Market",
       "type": "spot",
       "generation": 93,
-      "ticks": 101932,
+      "ticks": 102552,
       "trades": 97341,
       "equity": 100.52,
       "avgEquity": 100.28
@@ -29,8 +29,8 @@
       "name": "Market \u2192 Limit",
       "type": "spot",
       "generation": 93,
-      "ticks": 101932,
-      "trades": 101964,
+      "ticks": 102552,
+      "trades": 101967,
       "equity": 100.47,
       "avgEquity": 100.3
     },
@@ -38,7 +38,7 @@
       "name": "Limit \u2192 Market",
       "type": "spot",
       "generation": 93,
-      "ticks": 101932,
+      "ticks": 102552,
       "trades": 79020,
       "equity": 100.46,
       "avgEquity": 100.32
@@ -47,8 +47,8 @@
       "name": "Limit \u2192 Limit",
       "type": "spot",
       "generation": 62,
-      "ticks": 101932,
-      "trades": 99038,
+      "ticks": 102552,
+      "trades": 99040,
       "equity": 102.97,
       "avgEquity": 101.59
     },
@@ -56,7 +56,7 @@
       "name": "Medium",
       "type": "futures",
       "generation": 93,
-      "ticks": 101932,
+      "ticks": 102552,
       "trades": 0,
       "equity": 100.02,
       "avgEquity": 100.0
@@ -65,7 +65,7 @@
       "name": "Medium-High",
       "type": "futures",
       "generation": 93,
-      "ticks": 101932,
+      "ticks": 102552,
       "trades": 0,
       "equity": 100.0,
       "avgEquity": 100.0
@@ -74,7 +74,7 @@
       "name": "Low Fee",
       "type": "futures",
       "generation": 93,
-      "ticks": 101932,
+      "ticks": 102552,
       "trades": 0,
       "equity": 114.26,
       "avgEquity": 108.16
@@ -83,7 +83,7 @@
       "name": "Medium-Low",
       "type": "futures",
       "generation": 93,
-      "ticks": 101932,
+      "ticks": 102552,
       "trades": 0,
       "equity": 100.14,
       "avgEquity": 100.08
@@ -92,7 +92,7 @@
       "name": "High Fee",
       "type": "futures",
       "generation": 93,
-      "ticks": 101932,
+      "ticks": 102552,
       "trades": 0,
       "equity": 100.0,
       "avgEquity": 100.0
